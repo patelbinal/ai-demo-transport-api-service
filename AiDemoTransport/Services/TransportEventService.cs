@@ -28,6 +28,7 @@ public class TransportEventService : ITransportEventService
                 TransportId = transport.Id,
                 CarrierId = transport.CarrierId,
                 PurchaseId = transport.PurchaseId,
+                OfferId = transport.OfferId,
                 PickupLocationDetails = transport.PickupLocationDetails,
                 DeliveryLocationDetails = transport.DeliveryLocationDetails,
                 ScheduleDate = transport.ScheduleDate,
