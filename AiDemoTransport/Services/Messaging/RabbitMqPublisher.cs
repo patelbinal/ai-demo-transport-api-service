@@ -5,15 +5,14 @@ using AiDemoTransport.Services.Messaging;
 
 namespace AiDemoTransport.Services.Messaging;
 
-public class RabbitMqPublisher
+public class RabbitMqPublisher : IMessagePublisher
 {
-    private readonly string _queueName = "search.events";
     private readonly IConfiguration _configuration;
     public RabbitMqPublisher(IConfiguration configuration)
     {
         _configuration = configuration;
     }
-    public void PublishOfferCreated(object offerCreatedEvent)
+    public async Task PublishAsync<T>(T message, string queueName) where T : class
     {
         var factory = new ConnectionFactory()
         {
@@ -25,14 +24,16 @@ public class RabbitMqPublisher
         };
         using var connection = factory.CreateConnection();
         using var channel = connection.CreateModel();
-        channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+        channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
         var options = new System.Text.Json.JsonSerializerOptions
         {
             ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles,
             WriteIndented = false
         };
-        var message = System.Text.Json.JsonSerializer.Serialize(offerCreatedEvent, options);
-        var body = Encoding.UTF8.GetBytes(message);
-        channel.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body);
+        var body = Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(message, options));
+        var properties = channel.CreateBasicProperties();
+        properties.Persistent = true;
+        channel.BasicPublish(exchange: "", routingKey: queueName, basicProperties: properties, body: body);
+        await Task.CompletedTask;
     }
 }

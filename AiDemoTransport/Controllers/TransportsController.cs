@@ -51,6 +51,11 @@ public class TransportsController : ControllerBase
     {
         try
         {
+            // Ensure ScheduleDate is UTC
+            if (transport.ScheduleDate.Kind != DateTimeKind.Utc)
+            {
+                transport.ScheduleDate = DateTime.SpecifyKind(transport.ScheduleDate, DateTimeKind.Utc);
+            }
             _context.Transports.Add(transport);
             await _context.SaveChangesAsync();
 
