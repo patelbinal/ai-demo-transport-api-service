@@ -21,14 +21,16 @@ public class TransportDbContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.CarrierId).IsRequired();
             entity.Property(e => e.PurchaseId).IsRequired();
+            entity.Property(e => e.OfferId).IsRequired();
             entity.Property(e => e.PickupLocationDetails).IsRequired().HasMaxLength(500);
             entity.Property(e => e.DeliveryLocationDetails).IsRequired().HasMaxLength(500);
             entity.Property(e => e.ScheduleDate).IsRequired();
             entity.Property(e => e.Status).IsRequired().HasMaxLength(50).HasDefaultValue("Scheduled");
-            
+
             // Add indexes for better query performance
             entity.HasIndex(e => e.CarrierId);
             entity.HasIndex(e => e.PurchaseId);
+            entity.HasIndex(e => e.OfferId);
             entity.HasIndex(e => e.Status);
             entity.HasIndex(e => e.ScheduleDate);
         });
