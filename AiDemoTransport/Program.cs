@@ -14,6 +14,7 @@ builder.Services.AddDbContext<TransportDbContext>(options =>
 
 // Add RabbitMQ services
 builder.Services.AddScoped<ITransportEventService, TransportEventService>();
+builder.Services.AddScoped<IMessagePublisher, RabbitMqPublisher>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
