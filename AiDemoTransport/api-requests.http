@@ -1,0 +1,40 @@
+### Transport API Test Requests
+
+### Create a new transport (this will trigger RabbitMQ event)
+POST http://localhost:5087/api/transports
+Content-Type: application/json
+
+{
+    "carrierId": 101,
+    "purchaseId": 1001,
+    "pickupLocationDetails": "123 Main St, Downtown, City A - Contact: John Doe, Phone: +1-555-0123, Instructions: Ring doorbell",
+    "deliveryLocationDetails": "456 Business Ave, Suite 200, Corporate District, City B - Contact: Jane Smith, Phone: +1-555-0456, Instructions: Reception desk",
+    "scheduleDate": "2026-01-03T14:30:00Z",
+    "status": "Scheduled"
+}
+
+### Get all transports  
+GET http://localhost:5087/api/transports
+
+### Get specific transport
+GET http://localhost:5087/api/transports/1
+
+### Check API Health
+GET http://localhost:5087/health
+
+### Update transport
+PUT http://localhost:5087/api/transports/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "carrierId": 101,
+    "purchaseId": 1001,
+    "pickupLocationDetails": "Updated: 123 Main St, Downtown, City A - Contact: John Doe, Phone: +1-555-0123",
+    "deliveryLocationDetails": "Updated: 456 Business Ave, Corporate District, City B - Contact: Jane Smith, Phone: +1-555-0456",
+    "scheduleDate": "2026-01-03T15:00:00Z",
+    "status": "InTransit"
+}
+
+### Delete transport
+DELETE http://localhost:5087/api/transports/1

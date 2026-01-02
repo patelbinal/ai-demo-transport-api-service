@@ -1,0 +1,86 @@
+# Docker ignore file to exclude unnecessary files from build context
+
+# .NET build artifacts
+**/bin/
+**/obj/
+**/out/
+**/publish/
+
+# Visual Studio files
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+!packages/build/
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Logs
+logs/
+*.log
+
+# Runtime files
+*.pdb
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDE
+.vscode/
+.idea/
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Setup scripts
+*.ps1
+*.sh
+
+# Documentation
+README.md
+*.md
+
+# HTTP test files
+*.http
+*.rest
